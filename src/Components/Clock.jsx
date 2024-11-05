@@ -4,16 +4,9 @@ export class Clock extends React.Component {
   interval;
     constructor(props) {
         super(props);      
-        this.state = {time: this.getTime(this.props.clock.zone)};
         this.getWatche(this.props.clock.zone);
         this.interval  = 0;
 
-    }
-
-    getTime(zone) {
-        const currentZone = (new Date()).getTimezoneOffset() * 60000;
-        const newZone = zone * 60 * 60 * 1000 + currentZone;
-        return new Date((new Date()).getTime() + newZone).toLocaleTimeString();       
     }
     getWatche(zone){
         let date = new Date(),
@@ -59,10 +52,6 @@ export class Clock extends React.Component {
        return zone;
     }
     
-    componentDidMount() {
-        this.interval = setInterval(() => this.setState({time: this.getTime(this.props.clock.zone)}), 1000);
-      }
-
       componentWillUnmount() {
         clearInterval(this.interval);
       }
@@ -74,7 +63,7 @@ export class Clock extends React.Component {
             <div className='clockItem'>
               <h5 className='title'>{this.props.clock.name}</h5>
               <button className='btnRemove' type="button" onClick={() => this.props.delClock(this.props.clock.id)}>X</button>
-              <div className='clock-content'>{this.state.time}
+              <div className='clock-content'>
                   <time className={classNameDivs}>
                       <span className="clock__stroke clock__stroke--small clock__stroke--1"></span>
                       <span className="clock__stroke clock__stroke--small clock__stroke--2"></span>
